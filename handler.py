@@ -1,3 +1,4 @@
+import functools
 import logging
 import os
 import requests
@@ -12,6 +13,25 @@ HASHING_SALT = os.environ.get('HASHING_SALT')
 ENCRYPTION_KEY = os.environ.get('ENCRYPTION_KEY')
 
 log = logging.getLogger("tornado.application")
+
+
+def administrator(method):
+    """Decorate with this method to restrict to site admins."""
+    @functools.wraps(method)
+    def wrapper(self, *args, **kwargs):
+        if not self.current_user:
+            if self.request.method == "GET":
+                self.redirect("/")
+                return
+            raise tornado.web.HTTPError(403)
+        elif not self.current_user.administrator:
+            if self.request.method == "GET":
+                self.redirect("/")
+                return
+            raise tornado.web.HTTPError(403)
+        else:
+            return method(self, *args, **kwargs)
+    return wrapper
 
 
 class BaseHandler(tornado.web.RequestHandler):
@@ -34,6 +54,7 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class AdminHandler(BaseHandler):
 
+    @administrator
     def get(self, *args, **kwargs):
 
         word_store = WordStore(hashing_salt=HASHING_SALT, encryption_key=ENCRYPTION_KEY)
@@ -54,7 +75,7 @@ class MainHandler(BaseHandler):
 
         try:
 
-            r = requests.get(crawled_url)
+            r = requests.get(crawled_url, verify=False)
             r.raise_for_status()
 
             response = r.text

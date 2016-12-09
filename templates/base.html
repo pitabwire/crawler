@@ -45,7 +45,7 @@
             <ul class="nav navbar-nav navbar-right">
 
                      {% if not current_user %}
-                       <li> <a href="{{ users.create_login_url(request.uri) }} ">Sign in</a> %} </li>
+                       <li> <a href="{{ users.create_login_url(request.uri) }} ">Sign in</a> </li>
                      {% else %}
                         {% if current_user.administrator %}
                            <li> <a href="/admin/">{{ _("Admin") }}</a> </li>

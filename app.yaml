@@ -1,5 +1,3 @@
-application: crawler
-version: 1
 runtime: python27
 api_version: 1
 threadsafe: yes
@@ -19,9 +17,12 @@ libraries:
 - name: MySQLdb
   version: "latest"
 
+- name: ssl
+  version: latest
+
 # [START env_variables]
 env_variables:
-    CLOUDSQL_CONNECTION_NAME: crawler-connection
+    CLOUDSQL_CONNECTION_NAME: medmobile-1195:europe-west1:crawler-connection
     CLOUDSQL_USER: root
     CLOUDSQL_PASSWORD: r00t
     HASHING_SALT: totalsalt

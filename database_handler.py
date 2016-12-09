@@ -42,7 +42,7 @@ class WordStore:
 
         database = self.connect_to_cloudsql()
         cursor = database.cursor()
-        cursor.execute("CREATE DATABASE IF NOT EXISTS octopus;")
+        # cursor.execute("CREATE DATABASE IF NOT EXISTS octopus;")
         cursor.execute("USE octopus;")
         cursor.execute(
             "CREATE TABLE IF NOT EXISTS crawled_words ( WORD_KEY VARBINARY(64) NOT NULL, WORD VARBINARY(255) NOT NULL, WORD_COUNT INT DEFAULT 1, PRIMARY KEY (WORD_KEY) );")
