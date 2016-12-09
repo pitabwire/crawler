@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+<header>
+
+    <div class="header-content">
+
+
+        <div class="header-content-inner">
+
+
+            {% try %}
+            {% if error_message %}
+
+            <div class="alert alert-danger alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Problems :(</strong> {{ error_message }}
+            </div>
+
+            {% end %}
+            {% except %}
+            {% end %}
+
+
+            <h1 id="homeHeading">Enter the url to a website</h1>
+            <br/>
+
+            <form action="{{ request.path }}" method="post" class="compose">
+
+                <div class="input-group">
+                    <input type="text" class="form-control" name="url_to_be_crawled">
+
+                    <div class="input-group-btn">
+                        <!-- Buttons -->
+                        <input type="submit" value="{{ _(" Submit") }}" class="btn btn-primary"/>
+                    </div>
+                </div>
+
+
+                {% module xsrf_form_html() %}
+            </form>
+
+
+        </div>
+    </div>
+
+
+</header>
+
+
+{% end %}

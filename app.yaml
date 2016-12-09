@@ -1,0 +1,29 @@
+application: crawler
+version: 1
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
+
+- url: /static/
+  static_dir: static
+
+- url: /.*
+  script: crawler.application
+
+libraries:
+- name: MySQLdb
+  version: "latest"
+
+# [START env_variables]
+env_variables:
+    CLOUDSQL_CONNECTION_NAME: crawler-connection
+    CLOUDSQL_USER: root
+    CLOUDSQL_PASSWORD: r00t
+    HASHING_SALT: totalsalt
+    ENCRYPTION_KEY: encryptionkey
+# [END env_variables]

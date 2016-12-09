@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+
+<section id="results">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 text-center">
+
+                <h1 id="homeHeading"> Stored words  </h1>
+                <br/>
+
+
+                <br/>
+
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Primary key</th>
+                        <th>Word</th>
+                        <th>Count</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for result in results %}
+                    <tr>
+                        <td>{{result[0]}}</td>
+                        <td>{{result[1]}}</td>
+                        <td>{{result[2]}}</td>
+                    </tr>
+
+                    {% end %}
+
+                    </tbody>
+                </table>
+
+
+                <br/>
+                <br/>
+
+                <a href="/" class="btn btn-primary btn-xl page-scroll">Back to index</a>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% end %}
